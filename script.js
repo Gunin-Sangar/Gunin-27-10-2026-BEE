@@ -13,7 +13,6 @@ let myCoupon = null;     // the coupon the user applied (or null)
 
 // ================= 2. LOAD PRODUCTS =================
 
-// the API has many kinds of products. We only take the ones a gym person needs.
 // left side = API category name, right side = the name shown in our shop
 const categoryNames = {
   "groceries":          "Nutrition",
@@ -23,7 +22,7 @@ const categoryNames = {
 };
 
 // from the groceries, keep only gym foods
-const gymFoods = ["protein", "egg", "chicken", "milk", "rice", "fish", "beef", "honey"];
+const gymFoods = ["protein", "eggs", "chicken", "milk", "rice", "fish", "beef", "honey"];
 
 function isGymFood(title) {
   title = title.toLowerCase();
@@ -33,7 +32,7 @@ function isGymFood(title) {
   return false;
 }
 
-// get real products (with real photos) from a free practice API called DummyJSON
+// products from a free practice API called DummyJSON
 async function loadProducts() {
   const list = [];
 
@@ -43,21 +42,31 @@ async function loadProducts() {
     const data = await response.json();
 
     data.products.forEach(function (p) {
-      // skip groceries that are not gym food
+      // skips groceries that are not gym food
       if (slug === "groceries" && !isGymFood(p.title)) return;
 
-      list.push({ id: p.id, name: p.title, category: categoryNames[slug], price: p.price, image: p.thumbnail });
+      list.push(
+        { 
+          id: p.id, 
+          name: p.title, 
+          category: categoryNames[slug], 
+          price: p.price, 
+          image: p.thumbnail
+        }
+      );
     });
   }
 
   return list;
 }
 
-// fill the category dropdown from the products (no need to type categories by hand)
+// fill the category dropdown from the products
 function fillCategories() {
   const names = [];
   products.forEach(function (p) {
-    if (!names.includes(p.category)) names.push(p.category);
+    if (!names.includes(p.category)){
+      names.push(p.category);
+    }
   });
 
   names.forEach(function (name) {
