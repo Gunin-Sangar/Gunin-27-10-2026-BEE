@@ -1,0 +1,200 @@
+/* colors in one place, change here and it changes everywhere */
+:root {
+  --bg: #ecebe6;        /* light gym wall */
+  --panel: #fbfaf7;     /* cards and cart */
+  --line: #d4d2ca;      /* borders */
+  --text: #17171a;      /* rubber black */
+  --grey: #6b6f66;
+  --accent: #f55718;    /* safety yellow, like tape on a barbell */
+  --dark: #17171a;      /* text on yellow buttons */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button, input, select { font: inherit; }
+
+/* headings use the tall gym-poster font */
+h1, h2, h3, .price, .bigRow {
+  font-family: Oswald, Impact, "Arial Narrow", sans-serif;
+}
+
+/* ---------- top bar ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: var(--panel);
+  border-bottom: 3px solid var(--accent);
+}
+
+header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ---------- banner ---------- */
+.hero {
+  padding: 40px 24px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  border-left: 8px solid var(--accent);
+  padding-left: 16px;
+}
+
+.hero p { margin: 12px 0 0 24px; color: var(--grey); }
+
+/* ---------- search, filter, sort ---------- */
+.topBar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+/* ---------- main layout: products left, cart right ---------- */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+/* on small screens put the cart under the products */
+@media (max-width: 800px) {
+  .main { grid-template-columns: 1fr; }
+}
+
+/* ---------- products ---------- */
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  align-content: start;
+}
+
+.product {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;     /* show the whole product */
+  background: #f3f1ec;     /* light tile so photos look clean */
+  border-radius: 4px;
+}
+
+.product h3 { margin: 12px 0 2px; font-size: 1.05rem; font-weight: 500; }
+.small { color: var(--grey); font-size: 0.85rem; }
+
+.price { color: var(--accent); font-size: 1.4rem; font-weight: 700; margin: 8px 0 12px; }
+
+/* push the button to the bottom so all cards line up */
+.product button { margin-top: auto; }
+
+/* ---------- cart ---------- */
+.box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  align-self: start;
+  position: sticky;      /* cart stays visible while scrolling */
+  top: 16px;
+}
+
+.box h2 { margin: 0 0 8px; font-size: 1.3rem; text-transform: uppercase; }
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.qty { display: flex; align-items: center; gap: 6px; }
+.qty button { width: 26px; height: 26px; padding: 0; }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.bigRow {
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-top: 2px solid var(--accent);
+  padding-top: 10px;
+  margin-bottom: 14px;
+}
+
+.couponRow { display: flex; gap: 6px; margin: 14px 0 4px; }
+.couponRow input { flex: 1; min-width: 0; }
+
+#message { min-height: 1.2em; font-size: 0.85rem; color: var(--accent); margin: 4px 0 8px; }
+
+/* ---------- inputs and buttons ---------- */
+input, select {
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button {
+  cursor: pointer;
+  padding: 7px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+button:hover { background: var(--accent); color: var(--dark); }
+
+.mainBtn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: var(--dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mainBtn:hover { filter: brightness(1.1); }
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* ---------- checkout form (hidden at first) ---------- */
+#checkoutForm { display: none; margin-top: 12px; }
+#checkoutForm input { width: 100%; margin-bottom: 8px; }
